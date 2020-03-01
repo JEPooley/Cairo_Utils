@@ -1,6 +1,6 @@
 import cairo
 
-from shapes import Shapes
+from Cairo_Utils.shapes import Shapes
 
 class Canvas:
 

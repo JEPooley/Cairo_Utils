@@ -1,7 +1,7 @@
 import cairo
 import math
 
-from colour import Colour
+from Cairo_Utils.colour import Colour
 
 class Shapes:
 
@@ -36,7 +36,7 @@ if __name__ == '__main__':
     canvas = Canvas(WIDTH, HEIGHT)
     cr = canvas.cr
     ims = canvas.ims
-    canvas.background_fill((.2, .2, .2))
+    canvas.background_fill((.2, .2, .2, 0.5))
 
     # Draw shapes
     Shapes.draw_circle_fill(cr, WIDTH / 2, HEIGHT / 2, 200, (1, 0.5, 0.1))
