@@ -1,10 +1,11 @@
 import random
 
+from typing import Tuple
 
 class Colour:
 
     @classmethod
-    def unpack_rgba(cls, rgba: tuple):
+    def unpack_rgba(cls, rgba: Tuple) -> Tuple:
         is_a = (len(rgba) == 4)
         if is_a:
             r, g, b, a = rgba
@@ -14,17 +15,17 @@ class Colour:
             return r, g, b, 1
 
     @classmethod
-    def rgb_8bit_to_unit(cls, rgb):
+    def rgb_8bit_to_unit(cls, rgb: Tuple) -> Tuple:
         def f(x): return x/255
         return tuple([f(c) for c in rgb])
 
     @classmethod
-    def rgb_unit_to_8bit(cls, rgb):
+    def rgb_unit_to_8bit(cls, rgb: Tuple) -> Tuple:
         def f(x): return int(x * 255)
         return tuple([f(c) for c in rgb])
 
     @classmethod
-    def random_colour(cls, unit_interval=False):
+    def random_colour(cls, unit_interval: bool = False) -> Tuple:
         def r(): return random.randint(0, 255)
         rgb_8bit = (r(), r(), r())
         if unit_interval:
@@ -32,7 +33,7 @@ class Colour:
         return rgb_8bit
 
     @classmethod
-    def add_alpha(cls, rgb, alpha):
+    def add_alpha(cls, rgb: Tuple, alpha: float) -> Tuple:
         channels = len(rgb)
         assert channels == 3, f'rgb should be 3-channel, got {channels}\n'\
             + f'>>> {rgb}'
