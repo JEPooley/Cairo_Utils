@@ -25,7 +25,8 @@ if __name__ == '__main__':
 
     c.background_fill((.2, .8, .2))
 
-    c.circle(500, 500, 200)
+    c.circle(500, 500, 100)
     c.fill((0.4, 0., 0.1))
-
+    c.circle(500, 500, 200)
+    c.stroke(20, (200, 20, 90))
     c.save_as_png('test.png')

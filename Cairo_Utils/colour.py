@@ -12,6 +12,12 @@ class Colour:
         self._ctx.set_source_rgba(*Colour._unpack_rgba(rgba))
         self._ctx.fill()
 
+    def stroke(self, linewidth, colour):
+        colour = self.colour(colour)
+        self._ctx.set_source_rgba(*colour)
+        self._ctx.set_line_width(linewidth)
+        self._ctx.stroke()
+
     def colour(self, colour):
         colour_type = self.get_colour_type(colour)
         if colour_type == float:
