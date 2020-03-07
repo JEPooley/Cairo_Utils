@@ -12,6 +12,11 @@ class Shapes:
     def circle(self, x, y, radius):
         self._ctx.arc(x, y, radius, 0, 2 * math.pi)
 
+    def polygon(self, coord_list):
+        self._ctx.move_to(*coord_list[0])
+        [self._ctx.line_to(*coord) for coord in coord_list[1:]]
+        self._ctx.close_path()
+
     def crescent(self, x, y, radius, shift, rotate=0.0):
         phi = math.acos(shift / (2 * radius))
         x_shift, y_shift = shift * math.cos(rotate), shift * math.sin(rotate)
