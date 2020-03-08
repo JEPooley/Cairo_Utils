@@ -29,22 +29,3 @@ class Shapes:
         self._ctx.arc_negative(x - x_shift, y - y_shift, radius,
                               rotate - phi, rotate + phi)
         self._ctx.close_path()
-
-
-if __name__ == '__main__':
-    from canvas import Canvas
-
-    WIDTH = 3000
-    HEIGHT = 2000
-
-    # Create Canvas
-    canvas = Canvas(WIDTH, HEIGHT)
-    ctx = canvas.ctx
-    ims = canvas.ims
-    canvas.background_fill((.3, .3, .3))
-
-    # Draw shapes
-    Shapes.draw_gradient_sphere(ctx, WIDTH/2, HEIGHT/2,
-                                200, 100, (1, 0.2, 0.4))
-
-    ims.write_to_png('test.png')

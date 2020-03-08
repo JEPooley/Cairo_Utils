@@ -8,17 +8,6 @@ class Colour:
     def __init__(self, ctx):
         self._ctx = ctx
 
-    def fill(self, colour: Union[tuple, str]):
-        colour = self.colour(colour)
-        self._ctx.set_source_rgba(*colour)
-        self._ctx.fill()
-
-    def stroke(self, linewidth: float, colour: Union[tuple, str]):
-        colour = self.colour(colour)
-        self._ctx.set_source_rgba(*colour)
-        self._ctx.set_line_width(linewidth)
-        self._ctx.stroke()
-
     def colour(self, colour: Union[tuple, str]) -> tuple:
         colour_type = self.get_colour_type(colour)
         if colour_type == float:

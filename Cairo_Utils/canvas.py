@@ -1,10 +1,10 @@
 import cairo as cr
 
 from Cairo_Utils.shapes import Shapes
-from Cairo_Utils.colour import Colour
+from Cairo_Utils.styles import StrokeStyles, FillStyles
 
 
-class Canvas(Shapes, Colour):
+class Canvas(Shapes, StrokeStyles, FillStyles):
 
     def __init__(self, width: int, height: int):
         self._ims = cr.ImageSurface(cr.FORMAT_ARGB32, width, height)
@@ -12,17 +12,27 @@ class Canvas(Shapes, Colour):
         self._width = width
         self._height = height
         Shapes.__init__(self, self._ctx)
-        Colour.__init__(self, self._ctx)
+        StrokeStyles.__init__(self, self._ctx)
+        FillStyles.__init__(self, self._ctx)
 
-    def background_fill(self, rgba):
+    def background_fill(self, colour):
         self.rectangle(0, 0, self._width, self._height)
-        self.fill(rgba)
+        self.fill(colour)
+
+    def frame(self, width, colour):
+        self.polygon([(0, 0),
+                   (self._width, 0),
+                   (self._width, self._height),
+                   (0, self._height)])
+        self.stroke(2 * width, colour)
 
     def save_as_png(self, path):
         self._ims.write_to_png(path)
 
 
 if __name__ == '__main__':
+    import math
+
     c = Canvas(1000, 1000)
 
     c.background_fill('#2020DF')
@@ -40,6 +50,11 @@ if __name__ == '__main__':
             (100, 700),
             (300, 100)
             ])
-    c.stroke(10, (0, 0, 0))
+    c.stroke(10, (0, 0, 0), cap_type='round')
+
+    c.crescent(700, 700, 110.6, 40, math.pi / 3)
+    c.stroke(10, (95, 125, 87), join_type='round')
+
+    c.frame(50, '#34FFE5')
 
     c.save_as_png('test.png')
