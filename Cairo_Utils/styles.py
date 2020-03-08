@@ -1,14 +1,13 @@
 from typing import Union
 
 import cairo as cr
-from colour import Colour
+import colour as clr
 
 
-class StrokeStyles(Colour):
+class StrokeStyles:
 
     def __init__(self, ctx):
         self._ctx = ctx
-        super().__init__(self._ctx)
 
     def stroke(self,
                linewidth: float,
@@ -16,7 +15,7 @@ class StrokeStyles(Colour):
                join_type: str = 'miter',
                cap_type: str = 'square'):
 
-        colour = self.colour(colour)
+        colour = clr.colour(colour)
         self._ctx.set_source_rgba(*colour)
         self._ctx.set_line_width(linewidth)
         self.set_join(join_type)
@@ -44,13 +43,12 @@ class StrokeStyles(Colour):
             raise ValueError(f'stroke cap type "{cap_type}" not understood')
 
 
-class FillStyles(Colour):
+class FillStyles:
 
     def __init__(self, ctx):
         self._ctx = ctx
-        super().__init__(self._ctx)
 
     def fill(self, colour: Union[tuple, str]):
-        colour = self.colour(colour)
+        colour = clr.colour(colour)
         self._ctx.set_source_rgba(*colour)
         self._ctx.fill()
