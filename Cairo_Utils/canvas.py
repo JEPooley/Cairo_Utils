@@ -25,7 +25,7 @@ class Canvas(Shapes, Colour):
 if __name__ == '__main__':
     c = Canvas(1000, 1000)
 
-    c.background_fill((.2, .8, .2))
+    c.background_fill('#2020DF')
 
     c.circle(500, 500, 100)
     c.fill((0.4, 0., 0.1))
@@ -36,10 +36,10 @@ if __name__ == '__main__':
     c.rectangle(50, 50, 500, 100)
     c.fill(('#FF9593'))
 
-    c.polygon([(10, 10),
-               (100, 700),
-               (300, 100)
-              ])
-    c.fill((0, 0, 0))
+    c.line([(10, 10),
+            (100, 700),
+            (300, 100)
+            ])
+    c.stroke(10, (0, 0, 0))
 
     c.save_as_png('test.png')

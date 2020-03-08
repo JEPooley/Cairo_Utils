@@ -81,13 +81,6 @@ class Colour:
         rgba = tuple([int(h, 16) for h in hex_list])
         return self.rgb_8bit_to_unit(rgba)
 
-    @staticmethod
-    def add_alpha(rgb: tuple, alpha: float) -> tuple:
-        channels = len(rgb)
-        assert channels == 3, f'rgb should be 3-channel, got {channels}\n'\
-            + f'>>> {rgb}'
-        return rgb + (alpha,)
-
 
 if __name__ == "__main__":
     hexi = '#2F009F0A'
