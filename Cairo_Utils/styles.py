@@ -1,7 +1,7 @@
 from typing import Union
 
 import cairo as cr
-import colour as clr
+import Cairo_Utils.colour as clr
 
 
 class StrokeStyles:

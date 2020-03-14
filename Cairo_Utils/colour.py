@@ -1,6 +1,7 @@
 import random
-
 from typing import Union
+
+import numpy as np
 
 
 def colour(colour: Union[tuple, str]) -> tuple:
@@ -36,7 +37,7 @@ def unpack_rgba(rgba: tuple, alpha: float = 1.0) -> tuple:
 def get_colour_type(colour: Union[tuple, str]) -> type:
     if type(colour) == str:
         return str
-    elif any([type(c) == float for c in colour]):
+    elif any([type(c) == float or type(c) == np.float64 for c in colour]):
         if any([c > 1 for c in colour]):
             raise ValueError('float colours must be between 0 and 1, '
                              + f'got {colour}')

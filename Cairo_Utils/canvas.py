@@ -2,9 +2,10 @@ import cairo as cr
 
 from Cairo_Utils.shapes import Shapes
 from Cairo_Utils.styles import StrokeStyles, FillStyles
+from Cairo_Utils.text import Text
 
 
-class Canvas(Shapes, StrokeStyles, FillStyles):
+class Canvas(Shapes, StrokeStyles, FillStyles, Text):
 
     def __init__(self, width: int, height: int):
         self._ims = cr.ImageSurface(cr.FORMAT_ARGB32, width, height)
@@ -14,6 +15,7 @@ class Canvas(Shapes, StrokeStyles, FillStyles):
         Shapes.__init__(self, self._ctx)
         StrokeStyles.__init__(self, self._ctx)
         FillStyles.__init__(self, self._ctx)
+        Text.__init__(self, self._ctx)
 
     def background_fill(self, colour):
         self.rectangle(0, 0, self._width, self._height)
@@ -21,9 +23,9 @@ class Canvas(Shapes, StrokeStyles, FillStyles):
 
     def frame(self, width, colour):
         self.polygon([(0, 0),
-                   (self._width, 0),
-                   (self._width, self._height),
-                   (0, self._height)])
+                      (self._width, 0),
+                      (self._width, self._height),
+                      (0, self._height)])
         self.stroke(2 * width, colour)
 
     def save_as_png(self, path):
@@ -32,6 +34,9 @@ class Canvas(Shapes, StrokeStyles, FillStyles):
 
 if __name__ == '__main__':
     import math
+    import numpy as np
+    import matplotlib.pyplot as plt
+    from scipy.ndimage import gaussian_filter
 
     c = Canvas(1000, 1000)
 
@@ -55,6 +60,15 @@ if __name__ == '__main__':
     c.crescent(700, 700, 110.6, 40, math.pi / 3)
     c.stroke(10, (95, 125, 87), join_type='round')
 
-    c.frame(50, '#34FFE5')
+    # c.frame(100, '#34FFE5')
+
+    x = np.linspace(0, 1000, 100)
+    y = 100 * np.sin(x / 100) + 500
+
+    c.line([(xx, yy) for xx, yy in zip(x, y)])
+    c.stroke(10, (0, 0, 0))
+
+    c.set_font((0, 0, 0), font_slant='italic', font_weight='bold')
+    c.add_text('F(x)', 50, 50, 50)
 
     c.save_as_png('test.png')
