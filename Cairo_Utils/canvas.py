@@ -55,7 +55,7 @@ if __name__ == '__main__':
             ])
     c.stroke(10, (0, 0, 0), cap_type='round')
 
-    c.crescent(700, 700, 110.6, 40, math.pi / 3)
+    c.crescent(700, 700, 120, 100, math.pi / 3)
     c.stroke(10, (95, 125, 87), join_type='round')
 
     # c.frame(100, '#34FFE5')

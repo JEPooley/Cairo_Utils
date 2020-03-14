@@ -23,9 +23,8 @@ class Shapes:
     def crescent(self, x, y, radius, shift, rotate=0.0):
         phi = math.acos(shift / (2 * radius))
         x_shift, y_shift = shift * math.cos(rotate), shift * math.sin(rotate)
-        x, y = x + x_shift, y + y_shift
-        self._ctx.arc(x, y, radius, rotate + math.pi - phi,
+        self._ctx.arc(x + x_shift, y + y_shift, radius, rotate + math.pi - phi,
                      rotate + phi - math.pi)
-        self._ctx.arc_negative(x - x_shift, y - y_shift, radius,
+        self._ctx.arc_negative(x, y, radius,
                               rotate - phi, rotate + phi)
         self._ctx.close_path()
