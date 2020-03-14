@@ -35,8 +35,6 @@ class Canvas(Shapes, StrokeStyles, FillStyles, Text):
 if __name__ == '__main__':
     import math
     import numpy as np
-    import matplotlib.pyplot as plt
-    from scipy.ndimage import gaussian_filter
 
     c = Canvas(1000, 1000)
 

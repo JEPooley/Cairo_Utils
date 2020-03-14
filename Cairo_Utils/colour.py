@@ -59,10 +59,10 @@ def rgb_unit_to_8bit(rgb: tuple) -> tuple:
 def hex_to_rgba(hex_colour: str) -> tuple:
     if type(hex_colour) != str:
         raise TypeError('Hex colour expected as string')
-    if len(hex_colour) != 7 and len(hex_colour) != 9:
-        raise ValueError('Hex colour expected with string length 7 or 9, '
-                         + f'but got {len(hex_colour)}: {hex_colour}')
     hex_colour = hex_colour.strip('#')
+    if len(hex_colour) != 6 and len(hex_colour) != 8:
+        raise ValueError('Hex colour expected with string length 6 or 8, '
+                         + f'but got {len(hex_colour)}: {hex_colour}')
     length = len(hex_colour)
     hex_list = [hex_colour[i: i + 2] for i in range(0, length, 2)]
     rgba = tuple([int(h, 16) for h in hex_list])
@@ -70,7 +70,7 @@ def hex_to_rgba(hex_colour: str) -> tuple:
 
 
 if __name__ == "__main__":
-    hexi = '#2F009F0A'
+    hexi = '#2F009F'
     unit = (0, 0.4, 1.0)
     _8bit = (1, 0, 255, 8)
     print(colour(hexi))
