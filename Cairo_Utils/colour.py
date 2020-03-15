@@ -5,6 +5,8 @@ import numpy as np
 
 
 def colour(colour: Union[tuple, str]) -> tuple:
+    '''Check input colour and force into rgba [0.0 -> 1.0] format
+    '''
     colour_type = get_colour_type(colour)
     if colour_type == float:
         return unpack_rgba(colour)
@@ -17,6 +19,8 @@ def colour(colour: Union[tuple, str]) -> tuple:
 
 
 def random_colour(rand_alpha: bool = False) -> tuple:
+    '''Create random rgba colour
+    '''
     def r(): return random.random()
     if rand_alpha:
         return (r(), r(), r(), r())
@@ -25,16 +29,19 @@ def random_colour(rand_alpha: bool = False) -> tuple:
 
 
 def unpack_rgba(rgba: tuple, alpha: float = 1.0) -> tuple:
+    '''Add alpha channel to 3-band colours, otherwise pass through!
+    '''
     is_a = (len(rgba) == 4)
     if is_a:
-        r, g, b, a = rgba
-        return r, g, b, a
+        return rgba
     else:
         r, g, b = rgba
         return r, g, b, alpha
 
 
 def get_colour_type(colour: Union[tuple, str]) -> type:
+    '''Check whether colour format is 8-bit, hexidecimal or unit [0.0 -> 1.0]
+    '''
     if type(colour) == str:
         return str
     elif any([type(c) == float or type(c) == np.float64 for c in colour]):
@@ -47,16 +54,22 @@ def get_colour_type(colour: Union[tuple, str]) -> type:
 
 
 def rgb_8bit_to_unit(rgb: tuple) -> tuple:
+    '''Convert 8bit rgb to unit [0.0 -> 1.0]
+    '''
     def f(x): return x / 255
     return tuple([f(c) for c in rgb])
 
 
 def rgb_unit_to_8bit(rgb: tuple) -> tuple:
+    '''Convert unit [0.0 -> 1.0] to 8bit rgb
+    '''
     def f(x): return int(x * 255)
     return tuple([f(c) for c in rgb])
 
 
 def hex_to_rgba(hex_colour: str) -> tuple:
+    '''Convert hexidecimal colour to unit [0.0 -> 1.0] 
+    '''
     if type(hex_colour) != str:
         raise TypeError('Hex colour expected as string')
     hex_colour = hex_colour.strip('#')

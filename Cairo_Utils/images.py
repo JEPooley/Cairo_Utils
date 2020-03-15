@@ -1,12 +1,17 @@
 import cairo as cr
 
+
 class Images:
+    '''Manipulate images and add them to an image surface
+    '''
 
     def __init__(self, ctx: cr.Context):
         self._ctx = ctx
-    
+
     def add_image(self, image_path: str, top: float, left: float,
                   height: float, width: float):
+        '''Scale image and add to canvas
+        '''
         image_surface = cr.ImageSurface.create_from_png(image_path)
         img_height = image_surface.get_height()
         img_width = image_surface.get_width()

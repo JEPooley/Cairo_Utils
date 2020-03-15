@@ -8,8 +8,12 @@ from Cairo_Utils.images import Images
 
 
 class Canvas(Shapes, StrokeStyles, FillStyles, Text, Images):
+    '''Create and customise an image surface to be drawn on to
+    '''
 
     def __init__(self, width: int, height: int):
+        '''Create image surface and initialise drawing tools
+        '''
         self._ims = cr.ImageSurface(cr.FORMAT_ARGB32, width, height)
         self._ctx = cr.Context(self._ims)
         self._width = width
@@ -21,10 +25,15 @@ class Canvas(Shapes, StrokeStyles, FillStyles, Text, Images):
         Images.__init__(self, self._ctx)
 
     def background_fill(self, colour: Union[tuple, str]):
+        '''Set background colour - must be set before drawing
+        '''
         self.rectangle(0, 0, self._width, self._height)
         self.fill(colour)
 
     def frame(self, width: float, colour: Union[tuple, str]):
+        '''Adds a frame to the canvas - should be added last for overlay
+           effect
+        '''
         self.polygon([(0, 0),
                       (self._width, 0),
                       (self._width, self._height),
@@ -32,6 +41,8 @@ class Canvas(Shapes, StrokeStyles, FillStyles, Text, Images):
         self.stroke(2 * width, colour)
 
     def save_as_png(self, path: str):
+        '''Save image to PNG format
+        '''
         self._ims.write_to_png(path)
 
 
@@ -63,7 +74,7 @@ if __name__ == '__main__':
 
     c.add_image('test.png', 100, 100, 100, 300)
 
-    c.frame(100.2, '#34FFE5')
+    c.frame(100.2, '#34ABE5')
 
     x = np.linspace(0, 1000, 100)
     y = 100 * np.sin(x / 100) + 500
@@ -71,7 +82,7 @@ if __name__ == '__main__':
     c.line([(xx, yy) for xx, yy in zip(x, y)])
     c.stroke(10, (0, 0, 0))
 
-    c.set_font((0, 0, 0), font_slant='italic', font_weight='bold')
+    c.set_font((0, 1.0, 0), font_slant='italic', font_weight='bold')
     c.add_text('F(x)', 500, 500, 50, top_right=True)
 
     c.save_as_png('test.png')

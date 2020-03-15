@@ -6,6 +6,8 @@ import Cairo_Utils.colour as clr
 
 
 class Text:
+    '''Style text and add it to an image surface
+    '''
 
     def __init__(self, ctx: cr.Context, font_family: str = 'sans-serif',
                  font_slant: str = 'normal',
@@ -23,6 +25,8 @@ class Text:
 
     @colour.setter
     def colour(self, value):
+        '''Force colour to rgba [0.0 -> 1.0] format
+        '''
         self._colour = clr.colour(value)
 
     @property
@@ -31,6 +35,8 @@ class Text:
 
     @font_slant.setter
     def font_slant(self, value):
+        '''Convert human readable slant type to cairo slant type
+        '''
         if value.lower() == 'italic':
             self._font_slant = cr.FONT_SLANT_ITALIC
         else:
@@ -46,6 +52,8 @@ class Text:
 
     @font_weight.setter
     def font_weight(self, value):
+        '''Convert human readable font weight to cairo font weight
+        '''
         if value.lower() == 'bold':
             self._font_weight = cr.FONT_WEIGHT_BOLD
         else:
@@ -56,6 +64,8 @@ class Text:
             pass
 
     def _update_font(self):
+        '''Update cairo font face with style attributes
+        '''
         self._ctx.select_font_face(self.font_family,
                                    self.font_slant,
                                    self.font_weight)
@@ -64,13 +74,18 @@ class Text:
                  font_family: str = 'sans-serif',
                  font_slant: str = 'normal',
                  font_weight: str = 'normal'):
+        '''Manually set any text styling paramter
+        '''
         self.colour = colour
         self.font_family = font_family
         self.font_slant = font_slant
         self.font_weight = font_weight
+        self._update_font()
 
     def add_text(self, text: str, x: float, y: float,
                  font_size: float, top_right: bool = False):
+        '''Add text to image surface
+        '''
         self._ctx.set_source_rgba(*self.colour)
         self._ctx.set_font_size(font_size)
         if top_right:
