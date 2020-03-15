@@ -1,3 +1,5 @@
+from typing import Union
+
 import cairo as cr
 
 import Cairo_Utils.colour as clr
@@ -5,8 +7,10 @@ import Cairo_Utils.colour as clr
 
 class Text:
 
-    def __init__(self, ctx, font_family='sans-serif', font_slant='normal',
-                 font_weight='normal', colour=(0, 0, 0)):
+    def __init__(self, ctx: cr.Context, font_family: str = 'sans-serif',
+                 font_slant: str = 'normal',
+                 font_weight: str = 'normal',
+                 colour: Union[tuple, str] = (0, 0, 0)):
         self._ctx = ctx
         self.font_family = font_family
         self.font_slant = font_slant
@@ -53,18 +57,25 @@ class Text:
 
     def _update_font(self):
         self._ctx.select_font_face(self.font_family,
-                                    self.font_slant,
-                                    self.font_weight)
+                                   self.font_slant,
+                                   self.font_weight)
 
-    def set_font(self, colour=(0,0,0), font_family='sans-serif', font_slant='normal',
-                    font_weight='normal'):
+    def set_font(self, colour: Union[tuple, str] = (0, 0, 0),
+                 font_family: str = 'sans-serif',
+                 font_slant: str = 'normal',
+                 font_weight: str = 'normal'):
         self.colour = colour
         self.font_family = font_family
         self.font_slant = font_slant
         self.font_weight = font_weight
 
-    def add_text(self, text, x, y, font_size):
+    def add_text(self, text: str, x: float, y: float,
+                 font_size: float, top_right: bool = False):
         self._ctx.set_source_rgba(*self.colour)
         self._ctx.set_font_size(font_size)
-        self._ctx.move_to(x, y)
+        if top_right:
+            xx, yy, w, h, dx, dy = self._ctx.text_extents(text)
+            self._ctx.move_to(x - w, y + font_size)
+        else:
+            self._ctx.move_to(x, y + font_size)
         self._ctx.show_text(text)

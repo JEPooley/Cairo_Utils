@@ -6,7 +6,7 @@ import Cairo_Utils.colour as clr
 
 class StrokeStyles:
 
-    def __init__(self, ctx):
+    def __init__(self, ctx: cr.Context):
         self._ctx = ctx
 
     def stroke(self,
@@ -22,7 +22,7 @@ class StrokeStyles:
         self.set_cap(cap_type)
         self._ctx.stroke()
 
-    def set_join(self, join_type):
+    def set_join(self, join_type: str):
         if join_type == 'miter':
             self._ctx.set_line_join(cr.LINE_JOIN_MITER)
         elif join_type == 'round':
@@ -32,7 +32,7 @@ class StrokeStyles:
         else:
             raise ValueError(f'stroke join type "{join_type}" not understood')
 
-    def set_cap(self, cap_type):
+    def set_cap(self, cap_type: str):
         if cap_type == 'square':
             self._ctx.set_line_cap(cr.LINE_CAP_SQUARE)
         elif cap_type == 'round':
@@ -45,7 +45,7 @@ class StrokeStyles:
 
 class FillStyles:
 
-    def __init__(self, ctx):
+    def __init__(self, ctx: cr.Context):
         self._ctx = ctx
 
     def fill(self, colour: Union[tuple, str]):
