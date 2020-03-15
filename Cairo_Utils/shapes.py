@@ -1,7 +1,7 @@
 import math
+from typing import List
 
 import cairo as cr
-from typing import List
 
 
 class Shapes:

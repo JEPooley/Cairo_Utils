@@ -1,4 +1,5 @@
 import random
+import warnings
 from typing import Union
 
 import numpy as np
@@ -50,6 +51,10 @@ def get_colour_type(colour: Union[tuple, str]) -> type:
                              + f'got {colour}')
         return float
     else:
+        if max(colour) == 1:
+            warnings.warn('\n\nMax colour channel is 1 -> this has been '
+                          + 'interpreted as an 8bit colour.\n'
+                          + 'Please amend to 1.0 for float interpretation.\n')
         return int
 
 
@@ -68,7 +73,7 @@ def rgb_unit_to_8bit(rgb: tuple) -> tuple:
 
 
 def hex_to_rgba(hex_colour: str) -> tuple:
-    '''Convert hexidecimal colour to unit [0.0 -> 1.0] 
+    '''Convert hexidecimal colour to unit [0.0 -> 1.0]
     '''
     if type(hex_colour) != str:
         raise TypeError('Hex colour expected as string')

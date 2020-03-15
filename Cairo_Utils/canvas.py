@@ -1,10 +1,11 @@
-import cairo as cr
 from typing import Union
 
-from Cairo_Utils.shapes import Shapes
-from Cairo_Utils.styles import StrokeStyles, FillStyles
-from Cairo_Utils.text import Text
+import cairo as cr
+
 from Cairo_Utils.images import Images
+from Cairo_Utils.shapes import Shapes
+from Cairo_Utils.styles import FillStyles, StrokeStyles
+from Cairo_Utils.text import Text
 
 
 class Canvas(Shapes, StrokeStyles, FillStyles, Text, Images):
@@ -82,7 +83,7 @@ if __name__ == '__main__':
     c.line([(xx, yy) for xx, yy in zip(x, y)])
     c.stroke(10, (0, 0, 0))
 
-    c.set_font((0, 1.0, 0), font_slant='italic', font_weight='bold')
+    c.set_font((0, 1, 0), font_slant='italic', font_weight='bold')
     c.add_text('F(x)', 500, 500, 50, top_right=True)
 
     c.save_as_png('test.png')

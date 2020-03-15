@@ -1,6 +1,7 @@
 from typing import Union
 
 import cairo as cr
+
 import Cairo_Utils.colour as clr
 
 
